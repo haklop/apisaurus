@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Request, Response } from "express";
+import { Step } from "./models/step";
 
 class App {
 
@@ -21,6 +22,9 @@ class App {
     const router = express.Router();
 
     router.get('/', (req: Request, res: Response) => {
+      const step = new Step();
+      step.uuid = '3';
+      console.log(step.uuid);
       res.status(200).send({
         message: 'Hello World!'
       })
