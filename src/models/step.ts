@@ -1,19 +1,19 @@
-import { Column, ColumnType } from "../entities/column";
+import { Column, ColumnType } from '../entities/column';
 
 export class Step {
 
   @Column()
-  uuid: string;
+  public uuid: string;
 
   @Column('title', ColumnType.number)
-  name: string;
+  public name: string;
 
   @Column()
-  start: number;
+  public start: number;
 
   @Column('end_date')
-  end: number;
+  public end: number;
 
-  @Column(ColumnType.number)
-  receivedDate: number;
+  @Column(ColumnType.text)
+  public receivedDate: number;
 }

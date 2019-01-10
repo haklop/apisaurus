@@ -1,17 +1,9 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 
 export enum ColumnType {
   text = 'text',
-  number = 'number'
+  number = 'number',
 }
-
-export function Column(): Function;
-
-export function Column(sqlName: string): Function;
-
-export function Column(columnType: ColumnType): Function;
-
-export function Column(sqlName: string, columnType: ColumnType): Function;
 
 export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
   let columnType: ColumnType;
@@ -21,17 +13,17 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
     columnType = type;
     columnName = nameOrType;
   } else if (typeof nameOrType === 'string' && nameOrType in ColumnType) {
-    columnType = type;
+    columnType = ColumnType[nameOrType];
   } else if (typeof nameOrType === 'string') {
     columnName = nameOrType;
   }
-  return function(object: any, propertyName: string) {
+  return (object: any, propertyName: string) => {
     if (!columnName) {
       columnName = propertyName;
     }
 
     if (!columnType) {
-      const t = Reflect.getMetadata("design:type", object, propertyName);
+      const t = Reflect.getMetadata('design:type', object, propertyName);
       if (t.name === 'Number') {
         columnType = ColumnType.number;
       } else {
@@ -39,6 +31,6 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
       }
     }
 
-    console.log(propertyName, columnName, columnType);
-  }
+    console.log(object, propertyName, columnName, columnType);
+  };
 }

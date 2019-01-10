@@ -1,17 +1,17 @@
-import * as bodyParser from "body-parser";
-import * as express from "express";
-import { Request, Response } from "express";
-import { Step } from "./models/step";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import { Request, Response } from 'express';
+import { Step } from './models/step';
 
 class App {
+
+  public app: express.Application;
 
   constructor() {
     this.app = express();
     this.config();
     this.routes();
   }
-
-  public app: express.Application;
 
   private config(): void {
     this.app.use(bodyParser.json());
@@ -26,8 +26,8 @@ class App {
       step.uuid = '3';
       console.log(step.uuid);
       res.status(200).send({
-        message: 'Hello World!'
-      })
+        message: 'Hello World!',
+      });
     });
 
     router.post('/', (req: Request, res: Response) => {
@@ -36,7 +36,7 @@ class App {
       res.status(200).send(data);
     });
 
-    this.app.use('/', router)
+    this.app.use('/', router);
 
   }
 

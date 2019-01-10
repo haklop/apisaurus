@@ -4,9 +4,9 @@ function Property(sqlName: string) {
     target._sqlData = () => {
       this.uuid = '123';
       console.log('plouf', sqlName);
-    }
+    };
     console.log(target);
-  }
+  };
 }
 
 export {Property};
