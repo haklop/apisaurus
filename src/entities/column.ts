@@ -17,6 +17,7 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
   } else if (typeof nameOrType === 'string') {
     columnName = nameOrType;
   }
+
   return (object: any, propertyName: string) => {
     if (!columnName) {
       columnName = propertyName;
@@ -31,6 +32,22 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
       }
     }
 
-    console.log(object, propertyName, columnName, columnType);
+    let columns = Reflect.getMetadata('db:columns', object);
+    if (!columns) {
+      columns = [];
+    }
+
+    columns.push(new ColumnDescriptor(columnType, columnName));
+    Reflect.defineMetadata('db:columns', columns, object);
   };
+}
+
+class ColumnDescriptor {
+  private type: ColumnType;
+  private name: string;
+
+  constructor(type: ColumnType, name: string) {
+    this.type = type;
+    this.name = name;
+  }
 }
