@@ -37,17 +37,19 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
       columns = [];
     }
 
-    columns.push(new ColumnDescriptor(columnType, columnName));
+    columns.push(new ColumnDescriptor(columnType, columnName, propertyName));
     Reflect.defineMetadata('db:columns', columns, object);
   };
 }
 
 class ColumnDescriptor {
   private type: ColumnType;
-  private name: string;
+  private sqlName: string;
+  private propertyName: string;
 
-  constructor(type: ColumnType, name: string) {
+  constructor(type: ColumnType, sqlName: string, propertyName: string) {
     this.type = type;
-    this.name = name;
+    this.sqlName = sqlName;
+    this.propertyName = propertyName;
   }
 }

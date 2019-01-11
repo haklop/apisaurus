@@ -1,7 +1,11 @@
 import { Column, ColumnType } from '../entities/column';
+import { Id } from '../entities/id';
+import { Table } from '../entities/table';
 
+@Table('steps')
 export class Step {
 
+  @Id()
   @Column()
   public uuid: string;
 
