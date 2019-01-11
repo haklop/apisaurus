@@ -1,6 +1,6 @@
-import { Column, ColumnType } from '../entities/column';
-import { Id } from '../entities/id';
-import { Table } from '../entities/table';
+import { Column, ColumnType } from '../annotations/column';
+import { Id } from '../annotations/id';
+import { Table } from '../annotations/table';
 
 @Table('steps')
 export class Step {
