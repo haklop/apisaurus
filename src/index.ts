@@ -1,22 +1,34 @@
+import 'reflect-metadata';
+
 import app from './app';
 import { Step } from './models/step';
 
 import { isNull } from 'util';
+import { Query } from './query/query';
+import { Pool } from 'pg';
 
 /*const port = 4040;
 app.listen(port, () => {
   console.log('Express server listening on port ' + port);
 });*/
 
-const step = new Step();
-console.log('not set', step.uuid);
+(async () => {
+  const step = new Step();
 
-step.uuid = undefined;
-console.log('undefined', isNull(step.uuid));
+  console.log(Reflect.getMetadata('db:columns', step));
+  console.log(Reflect.getMetadata('db:id', step));
+  console.log(Reflect.getMetadata('db:table', step.constructor));
+  console.log(step);
 
-step.uuid = null;
-console.log('null', isNull(step.uuid));
+  step.uuid = 'c80c433f-b766-4893-994e-0146ba976ded';
 
-console.log(Reflect.getMetadata('db:columns', step));
-console.log(Reflect.getMetadata('db:id', step));
-console.log(Reflect.getMetadata('db:table', step.constructor));
+  const pool = new Pool({
+    database: 'postgres',
+    host: 'localhost',
+    password: 'postres',
+    port: 32768,
+    user: 'postgres',
+  });
+  const query = new Query(pool);
+  await query.save(step);
+})().catch((e) => console.error(e.stack));

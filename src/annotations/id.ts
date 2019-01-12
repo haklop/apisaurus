@@ -19,10 +19,12 @@ class IdAlreadyDefinedException {
   }
 }
 
-class IdDescriptor {
-  private propertyName: string;
+export class IdDescriptor {
+  public propertyName: string;
 
   constructor(propertyName: string) {
     this.propertyName = propertyName;
+
+    Object.freeze(this);
   }
 }

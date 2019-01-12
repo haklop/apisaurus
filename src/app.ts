@@ -3,8 +3,6 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import { Step } from './models/step';
 
-import 'reflect-metadata';
-
 class App {
 
   public app: express.Application;

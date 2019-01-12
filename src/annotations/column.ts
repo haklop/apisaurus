@@ -34,22 +34,24 @@ export function Column(nameOrType?: string | ColumnType, type?: ColumnType) {
 
     let columns = Reflect.getMetadata('db:columns', object);
     if (!columns) {
-      columns = [];
+      columns = new Map<string, ColumnDescriptor>();
     }
-
-    columns.push(new ColumnDescriptor(columnType, columnName, propertyName));
+    columns.set(propertyName, new ColumnDescriptor(columnType, columnName, propertyName));
     Reflect.defineMetadata('db:columns', columns, object);
   };
 }
 
-class ColumnDescriptor {
-  private type: ColumnType;
-  private sqlName: string;
-  private propertyName: string;
+// TODO : move
+export class ColumnDescriptor {
+  public type: ColumnType;
+  public sqlName: string;
+  public propertyName: string;
 
   constructor(type: ColumnType, sqlName: string, propertyName: string) {
     this.type = type;
     this.sqlName = sqlName;
     this.propertyName = propertyName;
+
+    Object.freeze(this);
   }
 }

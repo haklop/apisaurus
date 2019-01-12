@@ -9,7 +9,7 @@ export class Step {
   @Column()
   public uuid: string;
 
-  @Column('title', ColumnType.number)
+  @Column('title')
   public name: string;
 
   @Column()
@@ -18,6 +18,7 @@ export class Step {
   @Column('end_date')
   public end: number;
 
-  @Column(ColumnType.text)
+  @Column()
   public receivedDate: number;
+
 }
